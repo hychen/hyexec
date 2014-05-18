@@ -1,8 +1,8 @@
 should = (require \chai).should!
 expect = (require \chai).expect
 
-optname = require \../lib .optname
-transform-kwarg = require \../lib .transform-kwarg
+optname = require \../lib .option! .optname
+transform-kwarg = require \../lib .option! .transform-kwarg
 
 describe 'cnverting function arguments to approiate command arguments.', ->
   describe 'in POSIX style', ->
