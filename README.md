@@ -2,7 +2,7 @@
 
 To execute commands in fluent api.
 
-Her is the roughly idea...
+Here is the roughly idea...
 
 ```javascript
 require! hyexec
