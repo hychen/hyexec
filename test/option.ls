@@ -59,7 +59,7 @@ describe 'cnverting function arguments to approiate command arguments.', ->
         gnu-transform-kwarg key:1 .should.be.deep.eq ['--key=1']
         gnu-transform-kwarg key-key:1 .should.be.deep.eq ['--key-key=1']
         done!
-  describe 'in GNU style', ->
+  describe 'in Java style', ->
     java-optname = optname 'java'
     java-transform-kwarg = transform-kwarg 'java'
     describe 'the option prefix', -> ``it``
