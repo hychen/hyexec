@@ -2,7 +2,7 @@ should = (require \chai).should!
 expect = (require \chai).expect
 
 describe 'HyExec' ->
-  describe 'execute commands in flunet API.', -> ``it``
+  describe.skip 'execute commands in flunet API.', -> ``it``
     .. 'should build shell commands automatically.', (done) ->
       $ = new HyExec mode:dry
       $ 'git'
