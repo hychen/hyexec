@@ -5,6 +5,8 @@ To execute commands in fluent api.
 Her is the roughly idea...
 
 ```javascript
+require! hyexec
+$ = new hyexec.HyExec
 $ 'ls', '-al'                         # ls -al
   .cd \/opt/                          # cd /opt
   .then 'git'
