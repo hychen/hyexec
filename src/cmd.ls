@@ -22,13 +22,17 @@ class Cmd
       set = false
       args = args[0 to args.length-2]
 
-    if set
-      @_dbg "set argument '#{args}', current held arguments: '#{@_args}'"
-      @_args = @_args ++ args
+    if args.length > 0
+      if set
+        @_dbg "set argument '#{args}', current held arguments: '#{@_args}'"
+        @_args = @_args ++ args
+      else
+        @_dbg "unset argument '#{args}', current held arguments: '#{@_args}'"
+        @_args = filter (-> it not in args), @_args
+      @
     else
-      @_dbg "unset argument '#{args}', current held arguments: '#{@_args}'"
-      @_args = filter (-> it not in args), @_args
-    @
+      @_dbg "returns current held arguments."
+      @_args
 
   $command: ->
     if @_args.length == 0
