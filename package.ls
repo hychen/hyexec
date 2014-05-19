@@ -1,4 +1,4 @@
-#!/usr/bin/env lsc -cj
+# !/usr/bin/env lsc -cj
 author:
   name: ['Chen Hsin Yi']
   email: 'ossug.hychen@gmail.com'
@@ -19,6 +19,8 @@ scripts:
     if [ ! -e ./lib ]; then npm i LiveScript; lsc -bc -o lib src; fi
   """
 engines: {node: '*'}
+dependencies:
+  \prelude-ls: \1.1.x
 devDependencies:
   mocha: \1.14.x
   supertest: \0.7.x
