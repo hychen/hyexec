@@ -9,6 +9,10 @@ class Cmd
   (name) ->
     @name = name
     @_args = []
+    @_debug = false
+
+  _dbg: ->
+    console.log it if @_debug
 
   $args: (...args) ->
     # the operation is to unset command arguments if
@@ -19,8 +23,10 @@ class Cmd
       args = args[0 to args.length-2]
 
     if set
+      @_dbg "set argument '#{args}', current held arguments: '#{@_args}'"
       @_args = @_args ++ args
     else
+      @_dbg "unset argument '#{args}', current held arguments: '#{@_args}'"
       @_args = filter (-> it not in args), @_args
     @
 
