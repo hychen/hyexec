@@ -22,7 +22,6 @@ class Cmd
   (name, style='gnu') ->
     @name = name
     @_args = []
-    @_kwargs = {}
     @_opt_style = style
     @_debug = false
 
