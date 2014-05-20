@@ -1,6 +1,31 @@
 should = (require \chai).should!
 expect = (require \chai).expect
+
 Cmd = require \../lib/cmd .Cmd
+compile = require \../lib/cmd .compile
+
+describe 'compile function', ->
+  describe 'replaces all command options to apporiate string.', -> ``it``
+    .. 'should not modify arguments.', (done) ->
+      compile ['lsc','file','abc','def']
+        .should.deep.eq ['lsc','file','abc','def']
+      done!
+    .. 'should transform gnu style options.', (done) ->
+      compile [{k1:1}]
+        .should.deep.eq ['--k1=1']
+      done!
+    .. 'should transform posix style options.', (done) ->
+      compile [{k1:1}], 'posix'
+        .should.deep.eq ['--k1', '1']
+      compile [{k1:1}, {k2:2}], 'posix'
+        .should.deep.eq ['--k1', '1', '--k2', '2']
+      done!
+    .. 'should transform java style options.', (done) ->
+      compile [{k1:1}], 'java'
+        .should.deep.eq ['-k1=1']
+      compile [{k1:1}, {k2:2}], 'java'
+        .should.deep.eq ['-k1=1', '-k2=2']
+      done!
 
 describe 'Cmd', ->
   describe 'method $args handles arguments manuplation.', -> ``it``

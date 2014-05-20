@@ -1,15 +1,30 @@
 {filter} = require 'prelude-ls'
+{transform-kwarg} = require \../lib/option
 
-compile = ([hd, ...tl]:lst) -->
-  | lst.length == 0 => throw "try to compiled to a empty list"
-  | tl.length == 0 => [hd]
-  | _ => [hd] ++ compile tl
+compile = ([hd, ...tl]:lst, style='gnu') ->
+  compiled-hd = ->
+    if typeof hd is \object
+      transform-kwarg style, hd
+    else
+      [hd]
+  aux = -->
+    | lst.length == 0 =>
+      throw "try to compiled to a empty list"
+    | tl.length == 0 =>
+      compiled-hd!
+    | typeof hd is \object and tl.length > 0 =>
+      compiled-hd! ++ compile tl, style
+    | _ =>
+      [hd] ++ compile tl, style
+  aux!
 
+exports.compile = compile
 class Cmd
   (name) ->
     @name = name
     @_args = []
     @_kwargs = {}
+    @_opt_style = 'gnu'
     @_debug = false
 
   _dbg: ->
@@ -40,6 +55,6 @@ class Cmd
     if @_args.length == 0
       @name
     else
-      @name + ' ' + compile @_args .join ' '
+      @name + ' ' + compile @_args, @_opt_style .join ' '
 
 exports.Cmd = Cmd
