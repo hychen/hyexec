@@ -52,9 +52,6 @@ class Cmd
       filter (-> typeof it isnt \object), @_args
 
   $command: ->
-    if @_args.length == 0
-      @name
-    else
-      @name + ' ' + compile @_args, @_opt_style .join ' '
+    compile [@name] ++ @_args, @_opt_style .join ' '
 
 exports.Cmd = Cmd
