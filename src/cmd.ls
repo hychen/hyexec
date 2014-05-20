@@ -68,6 +68,18 @@ class Cmd
       # $opts() list command options.
       filter (-> typeof it is \object), @_args
 
+  $flags: (...args) ->
+    if args.length > 0
+      [set, flags] = parse-op-args args
+      if set
+        for flag in flags
+          @_args.push {"#{flag}":on}
+      else
+        ...
+      @
+    else
+      filter (-> typeof it is \object), @_args
+
   $command: ->
     compile [@name] ++ @_args, @_opt_style .join ' '
 

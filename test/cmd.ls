@@ -83,3 +83,20 @@ describe 'Cmd', ->
         .$opts rsh: off
         .$command! .should.eq 'rsync'
       done!
+  describe 'method $flags handles flags manuplation', -> ``it``
+    .. 'should be able to add flags(s)', (done) ->
+      new Cmd 'ls'
+        .$flags 'l', 'a'
+        .$command! .should.eq 'ls -l -a'
+      done!
+    .. 'should return current flags.', (done) ->
+      new Cmd 'rsync'
+        .$flags 'a', 'b'
+        .$flags! .should.deep.eq [{a:on}, {b:on}]
+      done!
+    .. .skip 'should be able to remove flags(s).', (done) ->
+      new Cmd 'rsync'
+        .$flags 'rsh'
+        .$flags 'rsh', off
+        .$command! .should.eq 'rsync'
+      done!
