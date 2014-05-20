@@ -4,6 +4,9 @@ author:
   email: 'ossug.hychen@gmail.com'
 name: 'hyexec'
 description: 'run commands in fluent api.'
+repository:
+  type: 'git'
+  url: 'git://github.com/hychen/hyexec.git'
 version: '0.1.1'
 main: \lib/index.js
 scripts:
