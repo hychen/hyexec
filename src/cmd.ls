@@ -18,6 +18,13 @@ compile = ([hd, ...tl]:lst, style='gnu') ->
       [hd] ++ compile tl, style
   aux!
 
+parse-op-args = (args)->
+  set = true
+  if args[args.length-1] is false
+    set = false
+    args = args[0 to args.length-2]
+  [set, args]
+
 class Cmd
   (name, style='gnu') ->
     @name = name
@@ -31,10 +38,7 @@ class Cmd
   $args: (...args) ->
     # the operation is to unset command arguments if
     # the last function argument is false.
-    set = true
-    if args[args.length-1] is false
-      set = false
-      args = args[0 to args.length-2]
+    [set, args] = parse-op-args args
 
     if args.length > 0
       if set
