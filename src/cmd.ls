@@ -2,15 +2,13 @@
 {transform-kwarg} = require \../lib/option
 
 exclude-element-by-type = (op, type, e) -->
-    if typeof e is \object
-      for k,v of e
-        if op is \is
-          return true if typeof v is type
-        else if op is \isnt
-          return true if typeof v isnt type
-        else
-          throw "err"
-    return false
+  | typeof e is \object =>
+    for k,v of e
+      switch op
+      | \is => typeof v is type
+      | \isnt => typeof v isnt type
+      | _ => throw "err"
+  | _ => false
 
 compile = ([hd, ...tl]:lst, style='gnu') ->
   compiled-hd = ->
