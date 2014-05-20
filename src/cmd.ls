@@ -19,11 +19,11 @@ compile = ([hd, ...tl]:lst, style='gnu') ->
   aux!
 
 class Cmd
-  (name) ->
+  (name, style='gnu') ->
     @name = name
     @_args = []
     @_kwargs = {}
-    @_opt_style = 'gnu'
+    @_opt_style = style
     @_debug = false
 
   _dbg: ->
