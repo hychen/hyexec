@@ -1,8 +1,9 @@
 {filter} = require 'prelude-ls'
-{compile} = require \./option
 
-buildcmd = (style, ...args, {m}:kwargs) ->
-  args ++ transform-arg style, kwargs
+compile = ([hd, ...tl]:lst) -->
+  | lst.length == 0 => throw "try to compiled to a empty list"
+  | tl.length == 0 => [hd]
+  | _ => [hd] ++ compile tl
 
 class Cmd
   (name) ->

@@ -26,11 +26,5 @@ transform-kwarg = (style, kwargs) -->
         args.push "#{v}"
   args
 
-compile = ([hd, ...tl]:lst) -->
-  | lst.length == 0 => throw "try to compiled to a empty list"
-  | tl.length == 0 => [hd]
-  | _ => [hd] ++ compile tl
-
-exports.compile = compile
 exports.optname = optname
 exports.transform-kwarg = transform-kwarg
