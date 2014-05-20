@@ -20,7 +20,7 @@ scripts:
   """
 engines: {node: '*'}
 dependencies:
-  \prelude-ls: \1.1.x
+  'prelude-ls': \1.1.x
 devDependencies:
   mocha: \1.14.x
   supertest: \0.7.x
