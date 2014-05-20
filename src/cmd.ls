@@ -1,6 +1,5 @@
-transform-arg = require \./ .transform-kwarg
-
 {filter} = require 'prelude-ls'
+{compile} = require \./option
 
 buildcmd = (style, ...args, {m}:kwargs) ->
   args ++ transform-arg style, kwargs
@@ -9,6 +8,7 @@ class Cmd
   (name) ->
     @name = name
     @_args = []
+    @_kwargs = {}
     @_debug = false
 
   _dbg: ->
@@ -32,12 +32,13 @@ class Cmd
       @
     else
       @_dbg "returns current held arguments."
-      @_args
+      # only list command arguments run called without function arguments.
+      filter (-> typeof it isnt \object), @_args
 
   $command: ->
     if @_args.length == 0
       @name
     else
-      @name + ' ' + @_args.join ' '
+      @name + ' ' + compile @_args .join ' '
 
 exports.Cmd = Cmd
