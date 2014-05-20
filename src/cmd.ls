@@ -1,6 +1,17 @@
 {filter} = require 'prelude-ls'
 {transform-kwarg} = require \../lib/option
 
+exclude-element-by-type = (op, type, e) -->
+    if typeof e is \object
+      for k,v of e
+        if op is \is
+          return true if typeof v is type
+        else if op is \isnt
+          return true if typeof v isnt type
+        else
+          throw "err"
+    return false
+
 compile = ([hd, ...tl]:lst, style='gnu') ->
   compiled-hd = ->
     if typeof hd is \object
@@ -66,7 +77,7 @@ class Cmd
       @
     else
       # $opts() list command options.
-      filter (-> typeof it is \object), @_args
+      filter (exclude-element-by-type \isnt, \boolean), @_args
 
   $flags: (...args) ->
     if args.length > 0
@@ -78,7 +89,7 @@ class Cmd
         ...
       @
     else
-      filter (-> typeof it is \object), @_args
+      filter (exclude-element-by-type \is, \boolean), @_args
 
   $command: ->
     compile [@name] ++ @_args, @_opt_style .join ' '
