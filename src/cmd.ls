@@ -18,7 +18,6 @@ compile = ([hd, ...tl]:lst, style='gnu') ->
       [hd] ++ compile tl, style
   aux!
 
-exports.compile = compile
 class Cmd
   (name) ->
     @name = name
@@ -70,3 +69,4 @@ class Cmd
     compile [@name] ++ @_args, @_opt_style .join ' '
 
 exports.Cmd = Cmd
+exports.compile = compile
