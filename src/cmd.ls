@@ -51,6 +51,21 @@ class Cmd
       # only list command arguments run called without function arguments.
       filter (-> typeof it isnt \object), @_args
 
+  $opts: (...args) ->
+    if args.length > 0
+      for opt in args
+        for k,v of opt
+          # $opts(k:1) adds optoin k that the value is 1.
+          if v isnt false
+            @_args.push {"#{k}":v}
+          else
+            # $opts(k:off) removes option k.
+            ...
+      @
+    else
+      # $opts() list command options.
+      filter (-> typeof it is \object), @_args
+
   $command: ->
     compile [@name] ++ @_args, @_opt_style .join ' '
 

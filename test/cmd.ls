@@ -58,3 +58,28 @@ describe 'Cmd', ->
         .$args '/tmp/b', off
         .$command! .should.eq 'ls /tmp/c'
       done!
+  describe 'metho $opts handles options manuplation', -> ``it``
+    .. 'should be able to add option(s)', (done) ->
+      new Cmd 'rsync'
+        .$opts rsh:\ssh .$command! .should.eq 'rsync --rsh=ssh'
+      new Cmd 'rsync'
+        .$opts rsh:\ssh, op:1 .$command! .should.eq 'rsync --rsh=ssh --op=1'
+      done!
+    .. 'should be able to add option(s) in chain style.', (done) ->
+      new Cmd 'rsync'
+        .$opts rsh:\ssh
+        .$opts op:1
+        .$command! .should.eq 'rsync --rsh=ssh --op=1'
+      done!
+    .. 'should return current options.', (done) ->
+      new Cmd 'rsync'
+        .$opts rsh:\ssh
+        .$opts op:1
+        .$opts! .should.deep.eq [{rsh:\ssh}, {op:1}]
+      done!
+    .. .skip 'should be able to remove option(s) in chain style.', (done) ->
+      new Cmd 'rsync'
+        .$opts rsh:\ssh
+        .$opts rsh: off
+        .$command! .should.eq 'rsync'
+      done!
