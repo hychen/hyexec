@@ -1,5 +1,7 @@
 # HyExec
 
+note: this work is in very early development stage!
+
 To execute commands in fluent api.
 
 Here is the roughly idea...
