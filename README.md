@@ -11,8 +11,7 @@ the object provides some special methods that its name starts with $ for
 manipulating arguemtns, handling stdout, stderr, etc.
 
 ```javascript
-require! hyexec
-$ = new hyexec.Cmd
+{$} = require \hyexec
 ls = $ 'ls'
   .$args '/tmp'
   .$opts 'al'
@@ -36,6 +35,8 @@ rsync
   .$command!             # rsync -a -z --rsh='ssh' /tmp server:dest
 ```
 
+supports Command Group also, such as git, bzr.
+
 ```javascript
 git = $ 'git'
 git
@@ -43,9 +44,24 @@ git
   .$args '.'
   .commit
   .$opts m, 'hello'
-  .$ok (stdout) -> console.log stdout
   .push
-  .$watch (code, stdout, stderr)-> console.log stdout
-  .$err (err, stderr) -> @$retry 3
   .$command! # git add .; git commit -m hello; git push
+```
+
+# TODO
+
+make Cmd.methods that the name starts with $ is callable object to set
+command arguements and command options one times as the above example.
+
+```
+ls = $ 'ls'
+ls '-al'
+ls a:on
+
+git = $ 'git'
+git
+  .add \.
+  .commit m:\hello
+  .push!
+  .$command!
 ```
