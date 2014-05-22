@@ -3,7 +3,7 @@ author:
   name: ['Chen Hsin Yi']
   email: 'ossug.hychen@gmail.com'
 name: 'hyexec'
-description: 'run commands in fluent api.'
+description: 'fluent tyle shell command wrraper'
 repository:
   type: 'git'
   url: 'git://github.com/hychen/hyexec.git'
