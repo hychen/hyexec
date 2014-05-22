@@ -91,18 +91,31 @@ class Cmd
       filter (include-element-by-type \is, \boolean), @_args
 
   $command: ->
-    compile [@name] ++ @_args, @_opt_style .join ' '
+    if @_parent
+      prefix = [@_parent.name, @name]
+    else
+      prefix = [@name]
+    compile prefix ++ @_args, @_opt_style .join ' '
+
+  $parent: ->
+    if it
+      @_parent = it
+    else
+      @_parent
 
 class HyExec
   (current) ->
     @current-cmd = new Cmd current
     @jobs = []
   $end: ->
-    @jobs.push @current-cmd
-    @current-cmd = null
+    if @current-cmd
+      @jobs.push @current-cmd
+      @current-cmd = null
     @
   $jobs: ->
     @jobs
+  $command: ->
+    map (-> it.$command!), @jobs .join ';'
 
 hyexec = (name) ->
   handlers = (obj) ->
@@ -116,8 +129,14 @@ hyexec = (name) ->
         # commit built command and start building new command
         # if method name does not include $.
       else if (name.indexOf '$') != 0
+        # if Cmd is Cmd Group and sub command is called first time.
+        if not obj.group
+          obj.group = obj.current-cmd
+          obj.current-cmd = null
+        cmd = new Cmd name
+        cmd.$parent obj.group
         obj.$end!
-        obj.current-cmd = new Cmd name
+        obj.current-cmd = cmd
         return recv
       # otherwise keep to config current command.
 

@@ -110,4 +110,15 @@ describe '$, a.k.a HyExec', ->
         .$opts a:on
         .$end!
         .$jobs! .0.$command! .should.eq 'ls /tmp/a -a'
+
+      git = $ 'git'
+      done!
+    .. 'should be able to construct commad group also.', (done) ->
+      git = $ 'git'
+        .add
+        .commit
+        .$opts m:'hello'
+        .push
+        .$end!
+        .$command! .should.eq 'git add;git commit -m=hello;git push'
       done!
