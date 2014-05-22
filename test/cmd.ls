@@ -119,6 +119,5 @@ describe '$, a.k.a HyExec', ->
         .commit
         .$opts m:'hello'
         .push
-        .$end!
         .$command! .should.eq 'git add;git commit -m=hello;git push'
       done!

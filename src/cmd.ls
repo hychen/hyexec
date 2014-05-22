@@ -115,6 +115,7 @@ class HyExec
   $jobs: ->
     @jobs
   $command: ->
+    @$end!
     map (-> it.$command!), @jobs .join ';'
 
 hyexec = (name) ->
