@@ -114,7 +114,12 @@ describe '$, a.k.a HyExec', ->
       git = $ 'git'
       done!
     .. 'should be able to construct commad group also.', (done) ->
+      #@FIXME: $ 'git' .add.commit.push does not work.
       git = $ 'git'
+      git.add.commit.$command! .should.eq 'git add;git commit'
+
+      git = $ 'git'
+      git
         .add
         .commit
         .$opts m:'hello'
