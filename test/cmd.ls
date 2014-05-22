@@ -2,6 +2,7 @@ should = (require \chai).should!
 expect = (require \chai).expect
 
 Cmd = require \../lib/cmd .Cmd
+$ = require \../lib/cmd .$
 compile = require \../lib/cmd .compile
 
 describe 'compile function', ->
@@ -99,4 +100,14 @@ describe 'Cmd', ->
         .$flags 'rsh'
         .$flags 'rsh', off
         .$command! .should.eq 'rsync'
+      done!
+
+describe '$, a.k.a HyExec', ->
+  describe 'builds command queue in fulent-style..', -> ``it``
+    .. 'should be able to config current built command in chain.', (done) ->
+      ls = $ 'ls'
+      ls.$args '/tmp/a'
+        .$opts a:on
+        .$end!
+        .$jobs! .0.$command! .should.eq 'ls /tmp/a -a'
       done!

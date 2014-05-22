@@ -1,4 +1,5 @@
-{filter} = require 'prelude-ls'
+{map, filter} = require 'prelude-ls'
+proxy = require 'node-proxy'
 {transform-kwarg} = require \../lib/option
 
 include-element-by-type = (op, type, e) -->
@@ -92,5 +93,48 @@ class Cmd
   $command: ->
     compile [@name] ++ @_args, @_opt_style .join ' '
 
+class HyExec
+  (current) ->
+    @current-cmd = new Cmd current
+    @jobs = []
+  $end: ->
+    @jobs.push @current-cmd
+    @current-cmd = null
+    @
+  $jobs: ->
+    @jobs
+
+hyexec = (name) ->
+  handlers = (obj) ->
+    has: (name) -> name in obj
+    get: (recv, name) ->
+      if obj[name]?
+        if typeof obj[name] is \function
+          return obj[name].bind obj
+        else
+          return obj[name]
+        # commit built command and start building new command
+        # if method name does not include $.
+      else if (name.indexOf '$') != 0
+        obj.$end!
+        obj.current-cmd = new Cmd name
+        return @
+      # otherwise keep to config current command.
+
+      prop = obj.current-cmd[name]
+      if typeof prop is \function
+        (...args)->
+          val = prop.apply obj.current-cmd, args
+          # return HyExec proxy if we are in the setting chain.
+          if args.lenght > 0
+            val
+          else
+            @
+      else
+        prop
+  proxy.create handlers new HyExec name
+
+exports.hyexec = hyexec
+exports.$ = hyexec
 exports.Cmd = Cmd
 exports.compile = compile
