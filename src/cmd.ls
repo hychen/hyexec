@@ -118,7 +118,7 @@ hyexec = (name) ->
       else if (name.indexOf '$') != 0
         obj.$end!
         obj.current-cmd = new Cmd name
-        return @
+        return recv
       # otherwise keep to config current command.
 
       prop = obj.current-cmd[name]
@@ -129,7 +129,7 @@ hyexec = (name) ->
           if args.lenght > 0
             val
           else
-            @
+            recv
       else
         prop
   proxy.create handlers new HyExec name
