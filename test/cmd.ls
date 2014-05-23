@@ -94,11 +94,11 @@ describe '$, a.k.a HyExec', ->
       git = $ 'git'
       git.add.commit.$command! .should.eq 'git add;git commit'
 
-      git = $ 'git'
+      git = $ 'git', 'posix'
       git
         .add
         .commit
         .$opts m:'hello'
         .push
-        .$command! .should.eq 'git add;git commit -m=hello;git push'
+        .$command! .should.eq 'git add;git commit -m hello;git push'
       done!

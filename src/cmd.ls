@@ -87,8 +87,8 @@ class Cmd
       @_parent
 
 class HyExec
-  (current) ->
-    @current-cmd = new Cmd current
+  (current, style) ->
+    @current-cmd = new Cmd current, style
     @jobs = []
   $end: ->
     if @current-cmd
@@ -101,7 +101,7 @@ class HyExec
     @$end!
     map (-> it.$command!), @jobs .join ';'
 
-hyexec = (name) ->
+hyexec = (name, style) ->
   handlers = (obj) ->
     has: (name) -> name in obj
     get: (recv, name) ->
@@ -117,7 +117,7 @@ hyexec = (name) ->
         if not obj.group
           obj.group = obj.current-cmd
           obj.current-cmd = null
-        cmd = new Cmd name
+        cmd = new Cmd name, style
         cmd.$parent obj.group
         obj.$end!
         obj.current-cmd = cmd
@@ -135,7 +135,7 @@ hyexec = (name) ->
             recv
       else
         prop
-  proxy.create handlers new HyExec name
+  proxy.create handlers new HyExec name, style
 
 exports.hyexec = hyexec
 exports.$ = hyexec
