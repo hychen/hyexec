@@ -100,6 +100,12 @@ class HyExec
   $command: ->
     @$end!
     map (-> it.$command!), @jobs .join ';'
+  $run: ->
+    err, stdout, stderr <- @$unsafe-exec
+    if err
+      console.log stderr
+    else
+      console.log stdout
   $unsafe-exec: (done) ->
     exec = require 'child_process' .exec
     if @jobs
