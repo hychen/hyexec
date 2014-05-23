@@ -7,7 +7,7 @@ description: 'Fluent Style Unix Shell Command Wrapper for Node.js'
 repository:
   type: 'git'
   url: 'git://github.com/hychen/hyexec.git'
-version: '0.2.1'
+version: '0.2.2'
 main: \lib/index.js
 scripts:
   test: """
