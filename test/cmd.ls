@@ -1,8 +1,7 @@
 should = (require \chai).should!
 expect = (require \chai).expect
 
-Cmd = require \../lib/cmd .Cmd
-$ = require \../lib/cmd .$
+{$, Cmd} = require \../ .cmd! 
 
 describe 'Cmd', ->
   describe 'method $args handles arguments manuplation.', -> ``it``

@@ -1,6 +1,6 @@
 {map, filter} = require 'prelude-ls'
 proxy = require 'node-proxy'
-{compile} = require \../lib/option
+{compile} = require \../ .option!
 
 include-element-by-type = (op, type, e) -->
   | typeof e is \object =>
