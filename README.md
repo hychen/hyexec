@@ -65,7 +65,7 @@ ls.$flags 'f'
 ls.$command! # ls -a -l -f
 ```
 
-besides, `$args`,`$opts`, `flags` can be used together.
+besides, `$args`,`$opts`, `$flags` can be used together.
 
 ```javascript
 rsync = $ 'rsync'
