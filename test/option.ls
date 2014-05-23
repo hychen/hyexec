@@ -1,7 +1,7 @@
 should = (require \chai).should!
 expect = (require \chai).expect
 
-{optname, transform-kwarg} = require \../lib .option!
+{optname, transform-kwarg, compile} = require \../lib .option!
 
 describe 'cnverting function arguments to approiate command arguments.', ->
   describe 'in POSIX style', ->
@@ -85,3 +85,26 @@ describe 'cnverting function arguments to approiate command arguments.', ->
         java-transform-kwarg key:1 .should.be.deep.eq ['-key=1']
         java-transform-kwarg key-key:1 .should.be.deep.eq ['-key-key=1']
         done!
+
+describe 'compile function', ->
+  describe 'replaces all command options to apporiate string.', -> ``it``
+    .. 'should not modify arguments.', (done) ->
+      compile ['lsc','file','abc','def']
+        .should.deep.eq ['lsc','file','abc','def']
+      done!
+    .. 'should transform gnu style options.', (done) ->
+      compile [{k1:1}]
+        .should.deep.eq ['--k1=1']
+      done!
+    .. 'should transform posix style options.', (done) ->
+      compile [{k1:1}], 'posix'
+        .should.deep.eq ['--k1', '1']
+      compile [{k1:1}, {k2:2}], 'posix'
+        .should.deep.eq ['--k1', '1', '--k2', '2']
+      done!
+    .. 'should transform java style options.', (done) ->
+      compile [{k1:1}], 'java'
+        .should.deep.eq ['-k1=1']
+      compile [{k1:1}, {k2:2}], 'java'
+        .should.deep.eq ['-k1=1', '-k2=2']
+      done!

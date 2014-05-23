@@ -26,5 +26,23 @@ transform-kwarg = (style, kwargs) -->
         args.push "#{v}"
   args
 
+compile = ([hd, ...tl]:lst, style='gnu') ->
+  compiled-hd = ->
+    if typeof hd is \object
+      transform-kwarg style, hd
+    else
+      [hd]
+  aux = -->
+    | lst.length == 0 =>
+      throw "try to compiled to a empty list"
+    | tl.length == 0 =>
+      compiled-hd!
+    | typeof hd is \object and tl.length > 0 =>
+      compiled-hd! ++ compile tl, style
+    | _ =>
+      [hd] ++ compile tl, style
+  aux!
+
 exports.optname = optname
 exports.transform-kwarg = transform-kwarg
+exports.compile = compile

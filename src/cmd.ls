@@ -1,6 +1,6 @@
 {map, filter} = require 'prelude-ls'
 proxy = require 'node-proxy'
-{transform-kwarg} = require \../lib/option
+{compile} = require \../lib/option
 
 include-element-by-type = (op, type, e) -->
   | typeof e is \object =>
@@ -10,23 +10,6 @@ include-element-by-type = (op, type, e) -->
       | \isnt => typeof v isnt type
       | _ => throw "err"
   | _ => false
-
-compile = ([hd, ...tl]:lst, style='gnu') ->
-  compiled-hd = ->
-    if typeof hd is \object
-      transform-kwarg style, hd
-    else
-      [hd]
-  aux = -->
-    | lst.length == 0 =>
-      throw "try to compiled to a empty list"
-    | tl.length == 0 =>
-      compiled-hd!
-    | typeof hd is \object and tl.length > 0 =>
-      compiled-hd! ++ compile tl, style
-    | _ =>
-      [hd] ++ compile tl, style
-  aux!
 
 parse-op-args = (args)->
   set = true
@@ -157,4 +140,3 @@ hyexec = (name) ->
 exports.hyexec = hyexec
 exports.$ = hyexec
 exports.Cmd = Cmd
-exports.compile = compile
