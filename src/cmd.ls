@@ -100,6 +100,10 @@ class HyExec
   $command: ->
     @$end!
     map (-> it.$command!), @jobs .join ';'
+  $unsafe-exec: (done) ->
+    exec = require 'child_process' .exec
+    if @jobs
+      exec @$command!, done
 
 hyexec = (name, style) ->
   handlers = (obj) ->

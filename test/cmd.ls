@@ -102,3 +102,8 @@ describe '$, a.k.a HyExec', ->
         .push
         .$command! .should.eq 'git add;git commit -m hello;git push'
       done!
+    .. 'method $unsafe-exec runs built commands in shell.', (done) ->
+        expr = $ 'expr' .$args '1', '+', '1'
+        (_, stdout, stderr) <- expr.$unsafe-exec!
+        stdout.should.eq "2\n"
+        done!
