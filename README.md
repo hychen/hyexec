@@ -9,11 +9,15 @@ In other words, methods that the name starts with `$` acts as a DSL.
 Here is an example that we use the shorthand helper of `hyexec`, which bounds
 some useful Unix command wrapper to global namespace.
 
+### JavaScript
+
 ```JavaScript
 hyexec = require 'hyexec'
 hyexec.global()
 git.add.$args('.').commit.push.$run()
 ```
+
+### LiveSCript
 
 ```LiveScript
 require \hyexec .global!
