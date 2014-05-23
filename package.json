@@ -6,7 +6,7 @@
     "email": "ossug.hychen@gmail.com"
   },
   "name": "hyexec",
-  "description": "fluent tyle shell command wrraper",
+  "description": "Fluent Style Unix Shell Command Wrapper for Node.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/hychen/hyexec.git"

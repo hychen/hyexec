@@ -1,4 +1,4 @@
-# HyExec - Fluent Style Shell Command Wrapper for JavaScript.
+# HyExec - Fluent Style Shell Command Wrapper for JavaScript
 
 note: this work is in very early development stage!
 
