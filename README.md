@@ -1,41 +1,83 @@
 # HyExec - Fluent Style Shell Command Wrapper for JavaScript
 
-note: this work is in very early development stage!
+All Unix shell commands can be wrraped by symbol `$`. Its command arguments,
+command options, standard output handler and standard error handler can be
+manipulate by special methods that the name starts with `$`.
 
-To execute commands in fluent api.
+In other words, methods that the name starts with `$` acts as a DSL.
 
-Here is the roughly idea...
+Here is an example that we use the shorthand helper of `hyexec`, which bounds
+some useful Unix command wrapper to global namespace.
 
-Any command can be bound to an object by $ symbol,
-the object provides some special methods that its name starts with $ for
-manipulating arguemtns, handling stdout, stderr, etc.
+```JavaScript
+hyexec = require 'hyexec'
+hyexec.global()
+git.add.$args('.').commit.push.$run()
+```
+
+```LiveScript
+require \hyexec .global!
+git.add.$args \. .commit.push.$run!
+```
+
+## Symbole $
+
+creates a dynamic wrapper to an existed Unix command.
 
 ```javascript
 {$} = require \hyexec
-ls = $ 'ls'
-  .$args '/tmp'
-  .$opts 'al'
-  .$command!             # ls /tmp -al
+```
 
+`$args` is used to add a argument,
+
+```
+ls = $ 'ls'
+ls.$args '/tmp'
+ls.$command!             # ls /tmp
+```
+
+or remove a argument.
+
+```
 ls
   .$args '/tmp', false   # remove /tmp from arguments.
-  .$command!             # ls -al
+  .$command!             # ls
+```
 
+`$opts` is used to add a option.
+
+```JavaScript
+ls.$opts a:on,l:on
+ls.$command! # ls -al
+```
+
+or remove a option.
+
+```
 ls.$opts 'a', 'l', false # remove -a -l from options.
 ls.$command!             # ls
 ```
+
+`$flags` is a shorthand of `$opts` for boolean type command option.
+
+```
+ls.$flags 'f'
+ls.$command! # ls -a -l -f
+```
+
+besides, `$args`,`$opts`, `flags` can be used together.
 
 ```javascript
 rsync = $ 'rsync'
 rsync
   .$opts rsh:\ssh
-  .$opts 'a', 'z'
+  .$flags 'a', 'z'
   .$args '/tmp'
   .$args 'server:dest'
   .$command!             # rsync -a -z --rsh='ssh' /tmp server:dest
 ```
 
-supports Command Group also, such as git, bzr.
+`$` supports Command Group also, such as git, bzr.
 
 ```javascript
 git = $ 'git'
