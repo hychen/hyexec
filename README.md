@@ -58,7 +58,7 @@ ls.$command! # ls -al
 or remove a option.
 
 ```
-ls.$opts 'a', 'l', false # remove -a -l from options.
+ls.$opts a:off, l:off # remove -a -l from options.
 ls.$command!             # ls
 ```
 
@@ -74,8 +74,8 @@ besides, `$args`,`$opts`, `$flags` can be used together.
 ```javascript
 rsync = $ 'rsync'
 rsync
-  .$opts rsh:\ssh
   .$flags 'a', 'z'
+  .$opts rsh:\ssh
   .$args '/tmp'
   .$args 'server:dest'
   .$command!             # rsync -a -z --rsh='ssh' /tmp server:dest
@@ -89,7 +89,7 @@ git
   .add
   .$args '.'
   .commit
-  .$opts m, 'hello'
+  .$opts m:'hello'
   .push
   .$command! # git add .; git commit -m hello; git push
 ```
