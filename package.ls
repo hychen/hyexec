@@ -26,6 +26,7 @@ dependencies:
   'prelude-ls': \1.1.x
   'node-proxy': \0.8.x
 devDependencies:
+  groc: \0.6.x
   mocha: \1.14.x
   supertest: \0.7.x
   chai: \1.8.x
