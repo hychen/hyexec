@@ -9,6 +9,10 @@ In other words, methods that the name starts with `$` acts as a DSL.
 Here is an example that we use the shorthand helper of `hyexec`, which bounds
 some useful Unix command wrapper to global namespace.
 
+```
+$ npm i hyexec
+```
+
 ### JavaScript
 
 ```JavaScript
@@ -110,4 +114,12 @@ git
   .commit m:\hello
   .push!
   .$command!
+```
+
+# Dev
+
+## build documents.
+
+```
+$ groc
 ```
